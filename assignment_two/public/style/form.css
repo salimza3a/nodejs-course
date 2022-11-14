@@ -1,0 +1,34 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: rgb(90, 99, 75);
+    background-color: antiquewhite;
+
+}
+
+form input {
+    border: 2px solid blueviolet;
+    border-radius: 5px;
+}
+
+form button {
+    font-weight: 500;
+    padding: 2px;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.form-container p {
+    font-size: 20px;
+    color: rgb(90, 99, 75);
+    font-weight: 400;
+    text-align: center;
+    width: 50%;
+}

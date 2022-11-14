@@ -1,0 +1,18 @@
+nav ul {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+nav ul li {
+    font-size: 20px;
+    color: pink;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav li a:hover {
+    background-color: aquamarine;
+    color: burlywood;
+
+}
