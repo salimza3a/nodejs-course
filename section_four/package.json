@@ -1,0 +1,16 @@
+{
+  "name": "section_four",
+  "version": "1.0.0",
+  "description": "Complete Node.js Guide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Salim Salimzada",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
