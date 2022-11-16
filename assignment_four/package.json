@@ -1,0 +1,18 @@
+{
+  "name": "assignment_four",
+  "version": "1.0.0",
+  "description": "This project is just for practicing template engine and making dynamic content",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Salim Salimzada",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
