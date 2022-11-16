@@ -1,0 +1,13 @@
+extends layouts/main-page.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/form.css")
+
+block content
+        main 
+            form(action="/users-info", method="post")
+                label(for="username")
+                    input(type='text', name = 'username',id='username')
+                    button(type='submit') add me
+            .img-container 
+                img(src="https://i.pinimg.com/originals/e5/3f/09/e53f0922cc69a45674c29b2c5e9845ec.jpg", alt="set up for software engineer")  

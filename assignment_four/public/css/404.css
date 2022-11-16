@@ -1,0 +1,11 @@
+main h2 {
+    font-size: 35px;
+    font-weight: bolder;
+    color: rgb(190, 140, 38);
+}
+
+.imgContainer img {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}

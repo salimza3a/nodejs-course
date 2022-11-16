@@ -13,7 +13,6 @@ main {
     align-items: center;
 }
 header {
-    width: 90%;
     max-width: 1320px;
     margin: 0 auto;
 
@@ -21,8 +20,8 @@ header {
 
 nav ul {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin: 0 auto;
+    justify-content: space-evenly;
     width: 50%;
     padding: 1.5rem;
 }
@@ -52,4 +51,12 @@ nav a:hover, a.active {
     width: 550px;
     object-fit: cover;
     margin-top: 2rem;
+}
+
+main li {
+    font-size: 35px;
+    font-weight: 500;
+    color:rgb(176, 135, 95);
+    list-style-type:lower-greek;
+    margin-top: 1.5rem;
 }
