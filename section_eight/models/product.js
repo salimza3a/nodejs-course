@@ -17,21 +17,35 @@ const getProductsFromFile = (callback) => {
 };
 
 module.exports = class Product {
-  constructor(title, imageUrl, description, price) {
+  constructor(id, title, imageUrl, description, price) {
+    this.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
     this.price = price;
+    console.log(id, "constructor id");
   }
 
   save() {
-    this.id = Math.floor(Math.random() * 123).toString();
     getProductsFromFile((products) => {
-      products.push(this);
-      console.log(JSON.stringify(products), "products");
-      fs.writeFile(p, JSON.stringify(products), (err) => {
-        console.log("write file error");
-      });
+      // why I can't see products which i created for the first time but I can see the rest of them after creation
+      if (this.id) {
+        const existingProductIndex = products.findIndex(
+          (prod) => prod.id === this.id
+        );
+        const updatedProducts = [...products];
+        updatedProducts[existingProductIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+          console.log(err, "error 1");
+        });
+        console.log(products, "products ");
+      } else {
+        this.id = Math.floor(Math.random() * 123).toString();
+        products.push(this);
+        fs.writeFile(p, JSON.stringify(products), (err) => {
+          console.log(err, "error 2");
+        });
+      }
     });
   }
   static fetchAll(callback) {

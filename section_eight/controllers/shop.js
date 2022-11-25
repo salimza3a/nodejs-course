@@ -13,7 +13,6 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId, (product) => {
-    console.log(product, "single product");
     res.render("shop/product-detail", {
       path: "/products",
       title: "product" + prodId,
@@ -41,10 +40,10 @@ exports.getCard = (req, res, next) => {
 
 exports.postCard = (req, res, next) => {
   const prodId = req.body.productId;
+
   Product.findById(prodId, (product) => {
     Card.addProduct(prodId, product.price);
   });
-  console.log("prodId", prodId);
   res.redirect("/card");
 };
 

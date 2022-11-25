@@ -11,7 +11,7 @@ block content
                     each product in prods
                         article.card.product-item
                             header.card__header 
-                                
+                             h2 #{product.title}
                             div.card__image
                                 img(src=product.imageUrl, alt=product.title, width='225px' )
                             div.card__content  

@@ -3,7 +3,7 @@ const path = require("path");
 
 const p = path.join(path.dirname(require.main.filename), "data", "card.json");
 
-module.exports = class Cart {
+module.exports = class Card {
   static addProduct(id, productPrice) {
     // Fetch the previous card
     fs.readFile(p, (err, fileContent) => {
@@ -28,9 +28,7 @@ module.exports = class Cart {
         card.products = [...card.products, updatedProduct];
       }
       card.totalPrice = card.totalPrice + +productPrice;
-      fs.writeFile(p, JSON.stringify(card), (err) => {
-        console.log(err, "looks like an error");
-      });
+      fs.writeFile(p, JSON.stringify(card), (err) => {});
     });
   }
 };
