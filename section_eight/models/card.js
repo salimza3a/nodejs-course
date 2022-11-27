@@ -31,4 +31,39 @@ module.exports = class Card {
       fs.writeFile(p, JSON.stringify(card), (err) => {});
     });
   }
+
+  static deleteProduct(id, productPrice) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        return;
+      }
+      const updatedCard = { ...JSON.parse(fileContent) };
+      const product = updatedCard.products.find((prod) => prod.id === id);
+      if (!product) {
+        return;
+      }
+      console.log(product, "product qty");
+      const productQty = product.qty;
+      updatedCard.products = updatedCard.products.filter(
+        (prod) => prod.id !== id
+      );
+      updatedCard.totalPrice =
+        updatedCard.totalPrice - productPrice * productQty;
+
+      fs.writeFile(p, JSON.stringify(updatedCard), (err) => {
+        console.log(err, "hmm idk why");
+      });
+    });
+  }
+
+  static getCard(callback) {
+    fs.readFile(p, (err, fileContent) => {
+      const card = JSON.parse(fileContent);
+      if (err) {
+        callback(null);
+      } else {
+        callback(card);
+      }
+    });
+  }
 };

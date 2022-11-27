@@ -32,9 +32,23 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCard = (req, res, next) => {
-  res.render("shop/card", {
-    title: "Card",
-    path: "/card",
+  Card.getCard((card) => {
+    Product.fetchAll((products) => {
+      const cardProducts = [];
+      for (product of products) {
+        const cardProductData = card.products.find(
+          (prod) => prod.id === product.id
+        );
+        if (cardProductData) {
+          cardProducts.push({ productData: product, qty: cardProductData.qty });
+        }
+      }
+      res.render("shop/card", {
+        title: "Card",
+        path: "/card",
+        products: cardProducts,
+      });
+    });
   });
 };
 
@@ -43,8 +57,17 @@ exports.postCard = (req, res, next) => {
 
   Product.findById(prodId, (product) => {
     Card.addProduct(prodId, product.price);
+    res.redirect("/card");
   });
-  res.redirect("/card");
+};
+
+exports.postCardDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  console.log(req.body, "product id from ");
+  Product.findById((prodId, product) => {
+    Card.deleteProduct(prodId, product.price);
+    res.redirect("/card");
+  });
 };
 
 exports.getOrders = (req, res, next) => {

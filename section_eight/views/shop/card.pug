@@ -1,5 +1,13 @@
 extends ../layouts/main-layout.pug
 
 block content 
-            h2 I am a card just kidding :d
-            p I am a padding just kidding part 2 :)
+        if(products.length > 0 )
+            ul 
+                each product in products 
+                    li 
+                        p #{product.productData.title} #{product.qty}
+                        form(action="/card-delete-item", method="post") 
+                            input(type="hidden", name="productId", value = `103`)
+                            button.btn(type="submit") Delete
+        else 
+            h3 No products in Card
