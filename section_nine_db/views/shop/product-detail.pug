@@ -1,0 +1,17 @@
+extends ../layouts/main-layout.pug
+
+block styles 
+   link(rel="stylesheet", href="/css/main.css")
+
+block content
+    .centered 
+        h1 #{singleProduct.title}
+        img(src=singleProduct.imageUrl, alt=singleProduct.title)
+        h3 #{singleProduct.price}
+        h4 #{singleProduct.id}
+        p #{singleProduct.description}
+        form(action="/card", method="post")
+            button(type="submit", class = "btn") Add to Card  
+            input(type="hidden", name="productId", value = singleProduct.id)
+           
+
