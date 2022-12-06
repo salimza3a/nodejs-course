@@ -1,34 +1,41 @@
 const Product = require("../models/product");
 const Card = require("../models/card");
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render("shop/product-list", {
-      prods: products,
-      title: "All Products",
-      path: "/products",
-    });
-  });
+  Product.fetchAll()
+    .then(([firstEl, secondEl]) => {
+      res.render("shop/product-list", {
+        prods: firstEl,
+        title: "All Products",
+        path: "/products",
+      });
+    })
+    .catch((err) => console.log(err, "err in shop"));
 };
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findById(prodId, (product) => {
-    res.render("shop/product-detail", {
-      path: "/products",
-      title: "product" + prodId,
-      singleProduct: product,
-    });
-  });
+  Product.findById(prodId)
+    .then(([product]) => {
+      console.log(product, "product");
+      res.render("shop/product-detail", {
+        path: "/products",
+        title: "product" + prodId,
+        singleProduct: product[0],
+      });
+    })
+    .catch((err) => console.log("err in shop"));
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render("shop/index", {
-      prods: products,
-      title: "Shop Index",
-      path: "/",
-    });
-  });
+  Product.fetchAll()
+    .then(([firstEl, secondEl]) => {
+      res.render("shop/index", {
+        prods: firstEl,
+        title: "Shop Index",
+        path: "/",
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getCard = (req, res, next) => {

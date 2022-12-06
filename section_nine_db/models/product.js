@@ -1,21 +1,6 @@
-const fs = require("fs");
+const db = require("../util/database");
 
 const Card = require("./card");
-const path = require("path");
-const p = path.join(
-  path.dirname(require.main.filename),
-  "data",
-  "products.json"
-);
-const getProductsFromFile = (callback) => {
-  fs.readFile(p, (err, fileContent) => {
-    if (err) {
-      callback([]);
-    } else {
-      callback(JSON.parse(fileContent));
-    }
-  });
-};
 
 module.exports = class Product {
   constructor(id, title, imageUrl, description, price) {
@@ -28,47 +13,19 @@ module.exports = class Product {
   }
 
   save() {
-    getProductsFromFile((products) => {
-      // why I can't see products which i created for the first time but I can see the rest of them after creation
-      if (this.id) {
-        const existingProductIndex = products.findIndex(
-          (prod) => prod.id === this.id
-        );
-        const updatedProducts = [...products];
-        updatedProducts[existingProductIndex] = this;
-        fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
-          console.log(err, "error 1");
-        });
-        console.log(products, "products ");
-      } else {
-        this.id = Math.floor(Math.random() * 123).toString();
-        products.push(this);
-        fs.writeFile(p, JSON.stringify(products), (err) => {
-          console.log(err, "error 2");
-        });
-      }
-    });
-  }
-  static fetchAll(callback) {
-    getProductsFromFile(callback);
+    return db.execute(
+      "INSERT INTO products (title, price,description,imageUrl) VALUES (?, ? , ? ,?)",
+      [this.title, this.price, this.description, this.imageUrl]
+    );
   }
 
-  static findById(id, callback) {
-    getProductsFromFile((products) => {
-      const product = products.find((item) => item.id === id);
-      callback(product);
-    });
+  static fetchAll() {
+    return db.execute("SELECT * FROM products");
   }
 
-  static deleteById(id) {
-    getProductsFromFile((products) => {
-      const product = products.find((prod) => prod.id === id);
-      const updatedProducts = products.filter((item) => item.id !== id);
-      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
-        if (!err) {
-          Card.deleteProduct(id, product.price);
-        }
-      });
-    });
+  static findById(id) {
+    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]);
   }
+
+  static deleteById(id) {}
 };
